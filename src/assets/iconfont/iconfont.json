@@ -1,0 +1,30 @@
+{
+  "id": "1723821",
+  "name": "肥宅基地-个人中心",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7206025",
+      "name": "Home",
+      "font_class": "Home",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "4419115",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "8224841",
+      "name": "收缩",
+      "font_class": "shousuo",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    }
+  ]
+}

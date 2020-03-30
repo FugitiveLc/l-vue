@@ -1,0 +1,70 @@
+<template>
+<el-header >
+      <div class="icon-wapper" @click="menuClose" >
+          <span class="iconfont" :style="asideStatus" >&#xe60a;</span>
+      </div>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">肥宅基地</el-breadcrumb-item>
+      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+    </el-breadcrumb>
+     <div class="userInfo">
+        <el-dropdown >
+          <i class="el-icon-setting" ></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>退出登录 </el-dropdown-item>
+          </el-dropdown-menu>
+         </el-dropdown>
+         <span>王小虎</span>
+     </div>
+    </el-header>
+</template>
+
+<script>
+
+export default {
+  name:'LHeader',
+  methods:{
+     menuClose(){
+        this.$store.commit('settings/CHANGE_ASIDE_STATUS')
+      }
+  },
+  computed:{
+     asideStatus(){
+      return {'transform':this.$store.getters.asideStatus ?'rotateY(180deg)':'rotateY(0deg)'};
+    }
+  }
+}
+</script>
+<style lang="scss">
+.el-header{
+  display: flex;
+  background-color: rgba(41,41,41,.09);
+  color: #333;
+  line-height: 50px;
+  height: 50px !important;
+  .icon-wapper{
+    padding:0 15px;
+    margin-left:-20px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover{
+      background: rgba(53, 51, 51, 0.05);
+    }
+    .iconfont{
+      font-size:22px; 
+      display: inline-block;
+    }
+  }
+  .el-breadcrumb{
+    line-height: 50px !important;
+    flex:1;
+  }
+  .userInfo{
+    min-width:90px;
+    .el-icon-setting{
+      margin-right:10px;
+    }
+  }
+}
+
+</style>

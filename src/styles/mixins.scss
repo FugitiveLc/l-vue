@@ -1,0 +1,14 @@
+@mixin omits($line:1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical; /*必需，从上向下垂直排列子元素*/
+  display: -webkit-box; /*必需，将对象作为弹性伸缩盒子模型显示 */
+  -webkit-line-clamp: $line; /*限制在一个块元素显示的文本的行数*/
+  word-wrap:break-word; /*超出宽度强制换行，不加的话，连续的数字或字母不会自动换行*/
+}
+
+@mixin sonCenter{  //子元素 上下左右居中
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
