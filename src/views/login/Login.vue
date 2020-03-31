@@ -14,7 +14,7 @@
 </template>
 
 <script>
-
+import {getToken,setToken} from '@/utils/token'
 export default {
   name:'Login',
   data(){
@@ -42,7 +42,16 @@ export default {
         email: [{ required: true, trigger: 'blur', validator: validateEmail }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
-      loading: false
+      loading: false,
+      redirect: undefined
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
     }
   },
   methods:{
@@ -51,13 +60,13 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/loginAction', this.form).then(() => {
-          //  this.$router.push({ path: this.redirect || '/' })
+            if(getToken()) this.$router.push({ path: this.redirect || '/' })
             this.loading = false
-          }).catch(() => {
+          }).catch(( ) => {
+           
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })  

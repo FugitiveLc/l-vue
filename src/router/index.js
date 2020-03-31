@@ -18,30 +18,34 @@ const routes = [
     children: [{
       path: 'home',
       name: 'home',
-      component: () => import('@views/home/Home') 
-      // meta: { title: '肥宅基地-个人中心', icon: 'dashboard' }
+      component: () => import('@views/home/Home'),
     },{
       path: 'classify',
       name: 'classify',
-      component: () => import('@views/classify/Classify') 
+      component: () => import('@views/classify/Classify'),
+      meta: { title: '文章分类' }    
     },{
       path: 'bookmark',
       name: 'bookmark',
-      component: () => import('@views/bookmark/Bookmark') 
+      component: () => import('@views/bookmark/Bookmark'),
+      meta: { title: '书签' }
     }]
   },  {
     path: '/article',
     name: 'Article',
     redirect:'/article/allArticle',
     component: Layout,
+    meta: { title: '文章管理' },
     children: [{
       path: 'allArticle',
       name: 'allArticle',
-      component: () => import('@views/article/AllArticle') 
+      component: () => import('@views/article/AllArticle'),
+      meta: { title: '所有文章' }
     } ,{
       path: 'editArticle',
       name: 'editArticle',
-      component: () => import('@views/article/EditArticle') 
+      component: () => import('@views/article/EditArticle'),
+      meta: { title: '编辑文章' }
     }]
   }  
 ]

@@ -1,10 +1,8 @@
-import {login} from "@/api/user"
-
-
+import {login,getUserInfo} from "@/api/user"
+import {removeToken} from '@/utils/token'
 const defaultState= ()=>{   
   return {
-    token:undefined,
-    email:''
+    nickName:undefined
   }
 }
 
@@ -14,30 +12,37 @@ const mutations = {
   RESET_STATE: (state) => {
     Object.assign(state, defaultState())
   },
-  SET_TOKEN: (state, token) => {
-    state.token = token
-  },
-  SET_EMAIL: (state, email) => {
-    state.email = email
-  },
+  SET_NICKNAME: (state, nickName) => {
+    state.nickName = nickName
+  }
 }
 
 const actions ={
-   loginAction({ commit },userInfo){  //登录
-      console.log(userInfo)
+  async loginAction({ commit },userInfo){  //登录
       const {email,password} = userInfo; //获取登录表单
-      return new Promise((resolve, reject) => {
-        login({ email: email.trim(), password: password }).then(response => {
-          const { data } = response
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })    
-      
-   }
+      return await login({email:email.trim(),password:password});
+   },
+   resetToken({ commit }) {
+    return new Promise(resolve => {
+      removeToken() // 删除cookie中的token
+      commit('RESET_STATE')
+      resolve()
+    })
+  },
+  getInfo({ commit }){  //获取用户信息
+    return new Promise((resolve, reject)=>{
+      getUserInfo().then(response=>{
+        commit('SET_NICKNAME',response.data.nickName);
+        resolve()
+      }).catch(error => {
+         reject(error)
+      })
+    })
+  },
+  logout({ commit }){
+    removeToken() // 删除cookie中的token
+    commit('RESET_STATE')
+  }
 }
 export default {
   namespaced: true,

@@ -8,3 +8,11 @@ export function login(params) {
     params
   })
 }
+
+//拉取用户信息
+export function getUserInfo(){
+  return request({
+    url:'/user',
+    method:'post'
+  })
+}

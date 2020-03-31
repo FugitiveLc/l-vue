@@ -3,26 +3,20 @@
       <div class="icon-wapper" @click="menuClose" >
           <span class="iconfont" :style="asideStatus" >&#xe60a;</span>
       </div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">肥宅基地</el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-    </el-breadcrumb>
-     <div class="userInfo">
-        <el-dropdown >
-          <i class="el-icon-setting" ></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>退出登录 </el-dropdown-item>
-          </el-dropdown-menu>
-         </el-dropdown>
-         <span>王小虎</span>
-     </div>
+      <l-breadcrumd /> 
+      <user />
     </el-header>
 </template>
 
 <script>
-
+import LBreadcrumd from '@/components/header/LBreadcrumd';
+import User from '@/components/header/User';
 export default {
   name:'LHeader',
+  components:{
+    LBreadcrumd,
+    User
+  },
   methods:{
      menuClose(){
         this.$store.commit('settings/CHANGE_ASIDE_STATUS')
@@ -53,16 +47,6 @@ export default {
     .iconfont{
       font-size:22px; 
       display: inline-block;
-    }
-  }
-  .el-breadcrumb{
-    line-height: 50px !important;
-    flex:1;
-  }
-  .userInfo{
-    min-width:90px;
-    .el-icon-setting{
-      margin-right:10px;
     }
   }
 }
