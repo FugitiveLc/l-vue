@@ -11,12 +11,24 @@ module.exports = {
   devServer: {
     port: 8080,
     proxy:{
-       "/user":{
-          target:"http://47.101.169.28:8083",
-          changeOrigin:true,
+       "/api-user":{
+          target:"http://47.101.169.28:8083",  //将请求转发到的服务器地址
+          changeOrigin:true, 
           ws:true,
-          '^/user': '/user'
-       }
+          logLevel:'debug', //在控制台显示出实际的请求地址
+          pathRewrite:{
+            '^/api-user': '' //替换请求中的路径
+          }
+       },
+       "/api-classify":{
+        target:"http://47.101.169.28:8080",
+        changeOrigin:true,
+        ws:true,
+        logLevel:'debug',
+        pathRewrite:{
+          '^/api-classify': ''
+        }
+     }
     }
   },
   chainWebpack: config => {
@@ -26,6 +38,7 @@ module.exports = {
         .set("@",resolve('src'))
         .set("@views",resolve('src/views'))
         .set("@styles",resolve('src/styles'))
+        .set("@api",resolve('src/api'))
   }
 }
 

@@ -1,10 +1,9 @@
 <template>
   <el-breadcrumb>
       <el-breadcrumb-item :to="{ path: '/' }"   >  {{home}} </el-breadcrumb-item>
-      <span class="el-breadcrumb__item"   v-for="(text,index) in breadcrumb"   :key="index">
-        <span role="link" class="el-breadcrumb__inner"  v-text="text"> </span>
-        <span role="presentation" class="el-breadcrumb__separator">/</span>
-      </span>
+      <el-breadcrumb-item   v-for="(text,index) in breadcrumb"   :key="index" > 
+          <template>{{text}} </template> 
+      </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 

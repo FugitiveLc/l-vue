@@ -2,7 +2,8 @@ import {login,getUserInfo} from "@/api/user"
 import {removeToken} from '@/utils/token'
 const defaultState= ()=>{   
   return {
-    nickName:undefined
+    nickName:undefined,
+    userId:undefined
   }
 }
 
@@ -14,7 +15,11 @@ const mutations = {
   },
   SET_NICKNAME: (state, nickName) => {
     state.nickName = nickName
+  },
+  SET_USERID: (state, userId) => {
+    state.userId = userId
   }
+
 }
 
 const actions ={
@@ -33,6 +38,7 @@ const actions ={
     return new Promise((resolve, reject)=>{
       getUserInfo().then(response=>{
         commit('SET_NICKNAME',response.data.nickName);
+        commit('SET_USERID',response.data.userId);
         resolve()
       }).catch(error => {
          reject(error)

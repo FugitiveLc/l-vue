@@ -11,7 +11,8 @@ import locale from 'element-ui/lib/locale/lang/zh-CN'
 
 //路由守卫 
 import '@/permission'
-
+//全局过滤器
+import '@/utils/filter'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, { locale })
