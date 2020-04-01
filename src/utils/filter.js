@@ -1,5 +1,6 @@
 import Vue from 'vue'
 Vue.filter('formatDate', function (value, fmt) {
+  if( typeof value != 'number') return value;
   let getDate = new Date(value);
   let o = {
     'M+': getDate.getMonth() + 1,
@@ -20,3 +21,21 @@ Vue.filter('formatDate', function (value, fmt) {
   }
   return fmt;
 })
+
+Vue.filter('fromNow', function (value) {
+  if( typeof value != 'number') return value;
+  let map = [ 
+    {key:'刚刚',val:0},
+    {key:'秒前',val:1000},
+    {key:'分前',val:60000},
+    {key:'个小时前',val:60*60000},
+    {key:'天前',val:24*60*60000}
+ ] 
+let time = new Date().getTime()-value;//获取相差的时间戳
+let item=  map.filter(item=>{
+   return  time > item.val;
+ }).pop();
+ 
+return item.key=== '天前' && time/item.val> 7?value:parseInt(time/item.val)+item.key;
+})
+

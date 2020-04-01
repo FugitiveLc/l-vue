@@ -75,6 +75,8 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-
+<style lang="scss">
+ .el-tag{
+   cursor: pointer;
+ }
 </style>
