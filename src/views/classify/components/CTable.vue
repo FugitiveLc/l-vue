@@ -32,19 +32,16 @@
       filter-placement="bottom-end">
       <template slot-scope="scope">
         <el-tag
+          @click.native="changeShowStatus(scope.row)"
           :type="scope.row.displayStatus !== 1 ? 'primary' : 'success'"
-          disable-transitions>{{scope.row.displayStatus ==1 ?'显示':'不显示'}}</el-tag>
+          disable-transitions>{{scope.row.displayStatus == 1 ?'显示':'不显示'}}</el-tag>
       </template>
     </el-table-column>
      <el-table-column label="操作">
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="handleEdit(scope.row)">编辑</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -66,11 +63,11 @@ export default {
       filterTag(value, row) {
         return row.displayStatus == value;
       },
-      handleEdit(index,row){
-
+      handleEdit(row){
+          this.$emit('editClassify',row);
       },
-      handleDelete(index,row){
-
+      changeShowStatus(row){
+         this.$emit('changeShowStatus',row)
       }
   }
 }
