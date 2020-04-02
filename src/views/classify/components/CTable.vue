@@ -30,8 +30,7 @@
       :filter-method="filterTag"
       :filter-multiple='false'
       filter-placement="bottom-end">
-      <template slot-scope="scope">
-        
+      <template slot-scope="scope">      
         <el-tag
           @click.native="changeShowStatus(scope.row)"
           :type="scope.row.displayStatus !== 1 ? 'primary' : 'success'"
