@@ -15,6 +15,15 @@ export function updateClassifyById(categoryId,params){  //修改用户文章分�
     params
   })
 }
+
+// export function updateClassifyById(categoryId,data){  //修改用户文章分类
+//   return request({
+//     url:`${CLASSIFY_BASE_URL}/user/category/${categoryId}`,
+//     method:'put',
+//     data
+//   })
+// }
+
 export function changeClassifyDisplay(categoryId,displayStatus){  //修改用户文章分类
   return request({
     url:`${CLASSIFY_BASE_URL}/user/category/${categoryId}/display/${displayStatus}`,

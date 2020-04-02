@@ -1,10 +1,11 @@
 import router from './router'
 import NProgress from 'nprogress'
 import {getToken} from '@/utils/token'
+import { Message } from 'element-ui'
 import store from './store'
 import 'nprogress/nprogress.css'
 
-  NProgress.configure({ showSpinner: false })  
+NProgress.configure({ showSpinner: false })  
 
 const whiteList = ['/login'] //拦截白名单
 

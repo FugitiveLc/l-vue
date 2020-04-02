@@ -1,5 +1,5 @@
 <template>
-   <div class="classify-edit  ">
+   <div class="classify-edit">
       <el-form ref="form" :model="classify" class="form" label-width="80px">
          <h2 class="l-form-title" v-text="editTitle">添加个人分类</h2>
          <el-form-item label="分类名称">

@@ -101,7 +101,9 @@ export default {
            let index= this.list.findIndex(item=>{
               return item.categoryId == classify.categoryId
             })
-            this.list.splice(index,1,classify); //正确写法
+            //this.list[index] = classify; //错误写法
+            //this.list.splice(index,1,classify); //正确写法
+            this.$set(this.list,index,classify)//正确写法
        }
     }
 }

@@ -29,3 +29,4 @@ html,body,#app,.el-scrollbar__view,.el-scrollbar,.el-container,.el-main,.el-asid
 .el-scrollbar__wrap {  
   overflow-x: hidden !important;
 }
+.l-wapper{ height:100%;}
