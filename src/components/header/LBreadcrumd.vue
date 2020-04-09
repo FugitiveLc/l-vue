@@ -16,6 +16,9 @@ export default {
        breadcrumb:[]
      }
    },
+   mounted(){
+     this.breadcrumb = this.$route.matched.filter( item => item.meta.title).map(item => item.meta.title) 
+   },
   watch:{
     $route() {
       this.breadcrumb = this.$route.matched.filter( item => item.meta.title).map(item => item.meta.title) 
