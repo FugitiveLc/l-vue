@@ -57,6 +57,7 @@ export default {
         font-size:18px;
         padding-bottom:25px;
      }
+     
   }
 }
 

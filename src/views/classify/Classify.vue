@@ -91,9 +91,11 @@ export default {
               background:'rgba(0,0,0,0)'
             });
             changeClassifyDisplay(classify.categoryId,
-                classify.displayStatus==0 ? 1 : 0,
+                classify.displayStatus==0 ? 1 : 0
                ).then(res =>{
                   this.updateClassify(res.data);
+               }).catch(()=>{
+                   loading.close();
                })
             loading.close();
        },

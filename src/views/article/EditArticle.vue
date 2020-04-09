@@ -1,12 +1,12 @@
 <template>
-   <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="文章标题">
-        <el-input v-model="form.articleTitle"></el-input>
+   <el-form ref="form" :rules="rules"  :model="form" label-width="80px">
+      <el-form-item label="文章标题" prop="articleTitle">
+        <el-input v-model="form.articleTitle" maxlength="100" ></el-input>
       </el-form-item> 
       <el-form-item label="文章作者">
-        <el-input v-model="form.articleAuthor" placeholder="不填则表示是原创"></el-input>
+        <el-input v-model="form.articleAuthor" placeholder="不填则表示是原创" maxlength='100' ></el-input>
       </el-form-item> 
-      <el-form-item label="文章分类">
+      <el-form-item label="文章分类" prop="categoryId">
         <el-select v-model="form.categoryId" placeholder="请选择文章分类">
           <el-option v-for="(item,index) in classifyList"
            :key="index" :label="item.categoryName" :value="item.categoryId"></el-option>
@@ -53,6 +53,7 @@
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import {getAllClassify} from '@api/classify'
+import {addArticle,updateArticle} from '@api/article'
 import {imageUpLoad} from '@api/resources'
 
 export default {
@@ -69,8 +70,18 @@ export default {
           articleContent: '',
           articleDesc: '',
           articleTitle: '',
+          publicStatus:0,
           categoryId: null,
           tags:[]          
+        },
+        rules:{
+          articleTitle:[
+             { required: true, message: '请输入文章标题！', trigger: 'blur' },
+             { min: 1, max: 100, message: '标题长度应在1-100个字符间', trigger: 'blur' }
+          ],
+          categoryId:[
+            { required: true, message: '请选择文章分类！', trigger: 'change' }
+          ]
         },
         inputVisible: false,
         inputValue: '',
@@ -80,8 +91,15 @@ export default {
     },
     mounted(){
       this.getClassifyList();  //拉取用户所有分类信息
+      if(this.$route.params.article){
+         this.updateInit(this.$route.params.article)
+      }
     },
     methods: {
+      updateInit(article){
+          Object.assign(this.form,article);
+          this.form.tags=article.tags ? article.tags.split(','):[]; 
+      },
        getClassifyList(){
           getAllClassify().then(res=>{
            this.classifyList=res.data;
@@ -99,15 +117,58 @@ export default {
             })
         },
       onSubmit(publicStatus) {
-        this.uploadArticle(); //新增文章
-         //发起请求 
-      },
-      uploadArticle(){
+         if(!this.validate()) return;  //验证不通过
          let article={};
          Object.assign(article,this.form)
          article.tags=article.tags.join(","); //存储标签
          article.publicStatus=publicStatus; //草稿或者发布 0 1
-         console.log(article);
+         this.addOrUpdateArticle(article);
+      },
+      validate(){
+        let isOk=false;
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+             isOk=true;
+          } else {
+            this.$notify.error({
+              title: '操作失败',
+              message: '请仔细检查你的文章信息！'
+            });
+            return false;
+          }
+        });
+        return isOk;
+      },
+      addOrUpdateArticle(data){         
+        const loading = this.$loading({
+            lock: true,
+            text: '数据提交中...',
+            spinner: 'el-icon-loading',
+            background:'rgba(0,0,0,0)'
+          });
+          if(data.articleId){  //修改
+            addArticle(data).then(res=>{
+              this.$notify({
+                title: '操作成功！',
+                message: '文章已修改！',
+                type: 'success'
+              });
+            }).catch(()=>{
+                loading.close();   
+            }); 
+          }else{ //新增
+            addArticle(data).then(res=>{
+              this.$notify({
+                title: '操作成功！',
+                message: '文章已上传！',
+                type: 'success'
+              });
+              this.form.articleId=res.data.articleId; //拿到文章id
+            }).catch(()=>{
+                loading.close();   
+            }); 
+          }
+          loading.close();   
       },
        handleClose(tag) {
         this.form.tags.splice(this.form.tags.indexOf(tag), 1);
@@ -118,7 +179,6 @@ export default {
           this.$refs.saveTagInput.$refs.input.focus();
         });
       },
-
       handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
@@ -152,7 +212,7 @@ export default {
        float:none;
      }
      .el-form-item__content{
-       margin-left:0;
+       margin-left:0 !important;
      }
  }
 </style>
