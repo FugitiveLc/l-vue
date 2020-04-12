@@ -147,7 +147,7 @@ export default {
             background:'rgba(0,0,0,0)'
           });
           if(data.articleId){  //修改
-            addArticle(data).then(res=>{
+            updateArticle(data).then(res=>{
               this.$notify({
                 title: '操作成功！',
                 message: '文章已修改！',
