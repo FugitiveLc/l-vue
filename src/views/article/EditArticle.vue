@@ -8,8 +8,8 @@
       </el-form-item> 
       <el-form-item label="文章分类" prop="categoryId">
         <el-select v-model="form.categoryId" placeholder="请选择文章分类">
-          <el-option v-for="(item,index) in classifyList"
-           :key="index" :label="item.categoryName" :value="item.categoryId"></el-option>
+          <el-option v-for="item in classifyList"
+           :key="item.categoryId" :label="item.categoryName" :value="item.categoryId"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="文章标签">
@@ -92,6 +92,7 @@ export default {
     mounted(){
       this.getClassifyList();  //拉取用户所有分类信息
       if(this.$route.params.article){
+         console.log(this.$route.params.article)
          this.updateInit(this.$route.params.article)
       }
     },
