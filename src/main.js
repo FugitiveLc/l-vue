@@ -15,10 +15,12 @@ import '@/permission'
 import '@/utils/filter'
 Vue.config.productionTip = false
 
-Vue.use(ElementUI, { locale })
+
 
 new Vue({
   router,
   store,
   render: function (h) { return h(App) }
 }).$mount('#app')
+
+Vue.use(ElementUI, { locale })

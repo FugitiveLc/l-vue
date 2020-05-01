@@ -53,7 +53,7 @@
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import {getAllClassify} from '@api/classify'
-import {addArticle,updateArticle} from '@api/article'
+import {addArticle,updateArticle,getArticleById} from '@api/article'
 import {imageUpLoad} from '@api/resources'
 
 export default {
@@ -91,9 +91,12 @@ export default {
     },
     mounted(){
       this.getClassifyList();  //拉取用户所有分类信息
-      if(this.$route.params.article){
-         console.log(this.$route.params.article)
-         this.updateInit(this.$route.params.article)
+      let articleId = this.$route.query.articleId;
+      if(articleId){
+         //重新通过文章id 获取文章详情 
+          getArticleById({articleId}).then(res=>{
+            this.updateInit(res.data);
+          })
       }
     },
     methods: {

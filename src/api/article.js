@@ -26,3 +26,11 @@ export function updateArticle(data){
     data
   })
 }
+
+//根据文章id 获取 文章 详情 
+export function getArticleById(data){
+  return request({
+    url:`${ARTICLE_BASE_URL}/user/article/${data.articleId}`,
+    method:'get'
+  })
+}

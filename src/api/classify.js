@@ -22,11 +22,11 @@ export function changeClassifyDisplay(categoryId,displayStatus){  //修改用户
     method:'put'
   })
 }
-export function addClassifyById(params){  //添加用户文章分类
+export function addClassifyById(data){  //添加用户文章分类
   return request({
     url:`${CLASSIFY_BASE_URL}/user/category`,
     method:'post',
-    params
+    data
   })
 }
 

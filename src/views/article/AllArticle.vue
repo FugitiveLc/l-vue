@@ -120,7 +120,7 @@ export default {
       handleEdit(index, row) {
          　this.$router.push({
   　         name: 'editArticle', // 这里通过name来引入router
-          　 params:{article:row}
+             query: {articleId:row.articleId}
         　　});
       },
       changePublicStatus(index,row){

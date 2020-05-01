@@ -1,13 +1,25 @@
 const path = require('path')
+const Compressionplugin = require("compression-webpack-plugin")
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  publicPath: '/',
-  outputDir: 'dist',
+  publicPath: '/personal/',
+  outputDir: 'dist/personal',
   assetsDir: 'static',
   lintOnSave:false,
   productionSourceMap: false,
+  configureWebpack:config=>{
+     if(process.env.NODE_ENV==='production'){
+       return {
+         plugins : [new Compressionplugin({
+           test: /\.js$|\.html$|\.css/,
+           threshold:10240,
+           deleteOriginalAssets:false
+         })]
+       }
+     }
+  },
   devServer: {
     port: 8080,
     proxy:{

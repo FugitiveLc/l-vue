@@ -11,7 +11,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         @change="changeDate"
-        :picker-options="pickerOptions">
+         >
       </el-date-picker>
        </el-form-item>
        <el-form-item>
@@ -53,40 +53,12 @@ export default {
         }, {
           value: 1,
           label: '已发布'
-        } ],
-       pickerOptions: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        }
+        } ] 
     }
   },
   methods:{
      changeDate(){
-       console.log(this.date)
-       if(this.date){
+       if(!!this.date){
          this.startDate=this.date[0];
          this.endDate=this.date[1];
        }else{
